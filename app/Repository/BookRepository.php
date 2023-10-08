@@ -2,12 +2,11 @@
 
 namespace App\Repository;
 
-use App\Models\User;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class UserRepository
+class BookRepository
 {
   const PAGINATION_SIZE = 10;
 
@@ -15,7 +14,7 @@ class UserRepository
 
   public function __construct()
   {
-    $this->query = User::query();
+    $this->query = Book::query();
   }
 
   public function find(int $id)
@@ -40,18 +39,18 @@ class UserRepository
     return $this->query->paginate(self::PAGINATION_SIZE);
   }
 
-  public function findRegisterByParam(string $column, int $value): int
+  public function findRegisterByParam(string $column, mixed $value): mixed
   {
-    return DB::table('users')->where("$column", $value)->count();
+    return DB::table('books')->where("$column", $value)->count();
   }
 
 
   public function create(array $payload)
   {
-    $hasRegister = $this->findRegisterByParam('cpf', $payload['cpf']);;
+    $hasRegister = $this->findRegisterByParam('book_name', $payload['book_name']);;
     if ($hasRegister > 0)
       return response()->json([
-        'message' => 'This cpf already exist'
+        'message' => 'This book_name already exist'
       ], 502);
 
     return $this->query->create($payload);

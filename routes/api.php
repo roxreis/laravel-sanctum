@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,16 @@ Route::controller(UserController::class)->group(function () {
     // Route::get('/users', 'getUsers');
     // Route::get('/users', 'getUsers');
     Route::post('/user/create', 'postUser');
-    Route::put('/address/update/{id}', [AddressController::class, 'putAddress']);
-    Route::delete('/address/delete/{id}', [AddressController::class, 'deleteAddress']);
+    Route::put('/user/update/{id}', 'putUser');
+    Route::delete('/user/delete/{id}', 'deleteUser');;
+});
 
-    Route::post('/orders', 'store');
+Route::controller(BookController::class)->group(function () {
+    Route::get('/books', 'getBooks');
+    Route::get('/book/{id}', 'getBook');
+    // Route::get('/books', 'getBooks');
+    // Route::get('/books', 'getBooks');
+    Route::post('/book/create', 'postBook');
+    Route::put('/book/update/{id}', 'putBook');
+    Route::delete('/book/delete/{id}', 'deleteBook');
 });

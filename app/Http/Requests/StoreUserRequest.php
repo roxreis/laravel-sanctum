@@ -21,11 +21,18 @@ class StoreUserRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'user_name' => 'required|string|max:255',
-            'cpf' => 'required|digits:11',
+            'cpf' => 'required|string|digits:11',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'cpf.digits:11' => 'CPF must have 11 digits.',
         ];
     }
 }

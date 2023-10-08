@@ -17,7 +17,7 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'book_name' => $this->faker->domainName(),
         ];
     }
 }
